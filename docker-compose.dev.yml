@@ -10,7 +10,7 @@ services:
             - 80:3000
         working_dir: /app
         env_file:
-            - ./.env
+            - ./.env.dev
         environment:
             PSQL_HOST: $PSQL_HOST
             POSTGRES_USER: $POSTGRES_USER
@@ -31,7 +31,7 @@ services:
         volumes:
             - todo-psql-data:/var/lib/postgresql/data
         env_file:
-            - ./.env
+            - ./.env.dev
         environment:
             POSTGRES_USER: $POSTGRES_USER
             POSTGRES_PASSWORD: $POSTGRES_PASSWORD

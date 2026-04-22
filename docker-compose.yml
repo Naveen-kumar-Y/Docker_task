@@ -31,7 +31,7 @@ services:
         volumes:
             - todo-psql-data:/var/lib/postgresql/data
         env_file:
-            - ./.env
+            - ./.env.prod
         environment:
             POSTGRES_USER: $POSTGRES_USER
             POSTGRES_PASSWORD: $POSTGRES_PASSWORD
