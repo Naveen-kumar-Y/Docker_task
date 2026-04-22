@@ -1,5 +1,5 @@
 # Base image
-FROM node:20-alpine as base
+FROM node:20-alpine AS base
 WORKDIR /app
 
 # Dependencies only
@@ -8,6 +8,11 @@ RUN npm ci
 
 # App source
 COPY . .
+
+# test
+FROM base as test
+ENV NODE_ENV=dev
+RUN npm test -- --ci --forceExit
 
 # Production stage
 FROM node:20-alpine AS production

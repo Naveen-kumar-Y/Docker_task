@@ -29,17 +29,14 @@ async function init() {
     };
 
     function getConfigurationOptions() {
-        if (process.env.NODE_ENV === 'prod') {
-            return {
-                ...config,
-                ssl: {
-                    rejectUnauthorized: false,
-                    ca: fs
-                        .readFileSync(
-                            __dirname + '/cert/DigiCertGlobalRootCA.crt.pem',
-                        )
-                        .toString(),
-                },
+        const caPath = `${__dirname}/cert/DigiCertGlobalRootCA.crt.pem`;
+         if (process.env.NODE_ENV === 'prod' && fs.existsSync(caPath)) {
+             return {
+                 ...config,
+                 ssl: {
+                     rejectUnauthorized: false,
+                     ca: fs.readFileSync(caPath).toString(),
+                 },
             };
         }
         return config;
@@ -129,3 +126,4 @@ module.exports = {
     updateItem,
     removeItem,
 };
+
