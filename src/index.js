@@ -58,10 +58,29 @@ const gracefulShutdown = () => {
         .then(() => process.exit());
 };
 
-server.listen(process.env.PORT || 8080);
+// Only start listening when this file is run directly. This prevents the
+// server from binding the port when tests `require` this module.
+if (require.main === module) {
+    const port = process.env.PORT || 3000;
 
-process.on('SIGINT', gracefulShutdown);
-process.on('SIGTERM', gracefulShutdown);
-process.on('SIGUSR2', gracefulShutdown); // Sent by nodemon
+    // Friendly error handler so we print a clear message when the port is taken
+    server.on('error', (err) => {
+        if (err && err.code === 'EADDRINUSE') {
+            console.error(`Port ${port} is already in use. Set PORT or free the port and try again.`);
+            process.exit(1);
+        }
+        console.error(err);
+        process.exit(1);
+    });
+
+    server.listen(port, () => {
+        console.log(`Server listening on port ${port}`);
+    });
+
+    process.on('SIGINT', gracefulShutdown);
+    process.on('SIGTERM', gracefulShutdown);
+    process.on('SIGUSR2', gracefulShutdown); // Sent by nodemon
+}
 
 module.exports = server;
+

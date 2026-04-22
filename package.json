@@ -13,7 +13,7 @@
         "test:watch": "jest --watchAll --detectOpenHandles",
         "test": "jest",
         "dev": "nodemon -L ./src/index.js",
-        "start": "node ./src/index.js"
+        "start": "cross-env PORT=3000 node ./src/index.js"
     },
     "prettier": {
         "trailingComma": "all",
@@ -26,6 +26,7 @@
         "jest": "^27.3.1",
         "nodemon": "^2.0.15",
         "prettier": "^2.4.1",
+        "cross-env": "^7.0.3",
         "supertest": "^6.1.6"
     },
     "dependencies": {
@@ -40,3 +41,4 @@
         "wait-port": "^0.2.9"
     }
 }
+
