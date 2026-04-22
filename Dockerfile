@@ -1,5 +1,5 @@
 # Base image
-FROM node:20-alpine as base
+FROM node:20-alpine AS base
 WORKDIR /app
 
 # Dependencies only
