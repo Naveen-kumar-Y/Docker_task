@@ -10,7 +10,7 @@ RUN npm ci
 COPY . .
 
 # test
-FROM base as test
+FROM base AS test
 ENV NODE_ENV=dev
 RUN npm test -- --ci --forceExit
 
